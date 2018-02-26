@@ -1,6 +1,6 @@
 <?php
 // Connexion à la base de données MySQL en LOCALHOST
-$db = "becode"; // Nom de la base de données
+$db = "reunion_island"; // Nom de la base de données
 try
 {
   // Sans affichage d'erreur des requetes
