@@ -4,6 +4,7 @@ $table = "hiking";
 $get = false;
 $succes = false;
 if (isset($_POST['button'])){
+  $id = $_POST['id'];
   if (isset($_POST['name'])){ $name = $_POST['name']; }
   else{ $name = ""; }
   if (isset($_POST['difficulty'])){ $difficulty = $_POST['difficulty']; }
@@ -15,31 +16,35 @@ if (isset($_POST['button'])){
   if (isset($_POST['height_difference'])){ $height_difference = $_POST['height_difference']; }
   else{ $height_difference = ""; }
 
-  //  $req = $bdd->prepare('INSERT INTO '.$table.'
-  //  (name, difficulty, distance, duration, height_difference) 
-  //  VALUES 
-  //  (:name, :difficulty, :distance, :duration, :height_difference)
-  //  ');
-  //  $req->execute(array(
-  //    'name' => $name,
-  //    'difficulty' => $difficulty,
-  //    'distance' => $distance,
-  //    'duration' => $duration,
-  //    'height_difference' => $height_difference
-  //  ));
+  $req = $bdd->prepare('UPDATE '.$table.' SET name = :name, difficulty = :difficulty, distance = :distance, duration = :duration, height_difference = :height_difference WHERE id = :id');
+
+  $req->execute(array(
+    'id' => $id,
+    'name' => $name,
+    'difficulty' => $difficulty,
+    'distance' => $distance,
+    'duration' => $duration,
+    'height_difference' => $height_difference
+  ));
   $succes = true;
 }
+
 if (isset($_GET['id']))
 {
   $get = true;
   $id = $_GET['id'];
-  $req = $bdd->query('SELECT * FROM '.$table.' WHERE id='.$id);
+  //  $req = $bdd->query('SELECT * FROM '.$table.' WHERE id='.$id);
+  $req = $bdd->prepare('SELECT * FROM '.$table.' WHERE id= :id');
+  $req->execute(array(
+    'id' => $id
+  ));
   $data = $req->fetch();
   $name = $data['name'];
   $difficulty = $data['difficulty'];
   $distance = $data['distance'];
   $duration = $data['duration'];
   $height_difference = $data['height_difference'];
+  $req->closeCursor();
 }
 ?>
 
@@ -87,9 +92,9 @@ if (isset($_GET['id']))
     </form>
     <p></p>
     <?php
-    //    if ($succes){
-    //      echo '<p style="color: #00862c;">La randonnée a été ajoutée avec succès.</p>';
-    //    }
+    if ($succes){
+      echo '<p style="color: #00862c;">La randonnée a été modifiée avec succès.</p>';
+    }
     ?>
   </body>
 </html>
