@@ -1,6 +1,7 @@
 <?php
 require 'notouch/sqlconnect.php';
 $table = "hiking";
+$succes = false;
 if (isset($_POST['button'])){
   if (isset($_POST['name'])){ $name = $_POST['name']; }
   else{ $name = ""; }
@@ -20,11 +21,12 @@ if (isset($_POST['button'])){
   ');
   $req->execute(array(
     'name' => $name,
-    'difficulty' => $distance,
+    'difficulty' => $difficulty,
     'distance' => $distance,
     'duration' => $duration,
     'height_difference' => $height_difference
   ));
+  $succes = true;
 }
 ?>
 
@@ -36,7 +38,7 @@ if (isset($_POST['button'])){
     <link rel="stylesheet" href="css/basics.css" media="screen" title="no title" charset="utf-8">
   </head>
   <body>
-    <a href="/php-pdo/read.php">Liste des données</a>
+    <a href="read.php">Liste des données</a>
     <h1>Ajouter</h1>
     <form action="" method="post">
       <div>
@@ -69,5 +71,11 @@ if (isset($_POST['button'])){
       </div>
       <button type="submit" name="button">Envoyer</button>
     </form>
+    <p></p>
+    <?php
+    if ($succes){
+      echo '<p style="color: #00862c;">La randonnée a été ajoutée avec succès.</p>';
+    }
+    ?>
   </body>
 </html>
