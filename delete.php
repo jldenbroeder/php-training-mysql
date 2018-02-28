@@ -2,31 +2,14 @@
 require 'notouch/sqlconnect.php';
 $table = "hiking";
 $get = false;
-$succes = false;
+
 if (isset($_POST['button'])){
   $id = $_POST['id'];
-  if (isset($_POST['name'])){ $name = $_POST['name']; }
-  else{ $name = ""; }
-  if (isset($_POST['difficulty'])){ $difficulty = $_POST['difficulty']; }
-  else{ $difficulty = ""; }
-  if (isset($_POST['distance'])){ $distance = $_POST['distance']; }
-  else{ $distance = ""; }
-  if (isset($_POST['duration'])){ $duration = $_POST['duration']; }
-  else{ $duration = ""; }
-  if (isset($_POST['height_difference'])){ $height_difference = $_POST['height_difference']; }
-  else{ $height_difference = ""; }
-
-  $req = $bdd->prepare('UPDATE '.$table.' SET name = :name, difficulty = :difficulty, distance = :distance, duration = :duration, height_difference = :height_difference WHERE id = :id');
-
+  $req = $bdd->prepare('DELETE FROM '.$table.' WHERE id = :id');
   $req->execute(array(
-    'id' => $id,
-    'name' => $name,
-    'difficulty' => $difficulty,
-    'distance' => $distance,
-    'duration' => $duration,
-    'height_difference' => $height_difference
+    'id' => $id
   ));
-  $succes = true;
+  header('Location: read.php');
 }
 
 if (isset($_GET['id']))
@@ -59,14 +42,17 @@ if (isset($_GET['id']))
     <h1>Supprimer</h1>
     <form action="" method="post">
       <div>
-<?php if ($get) { 
+        <p>
+          <?php if ($get) { 
   echo $name."<br />"; 
-    echo $difficulty."<br />"; 
-    echo $distance."<br />"; 
-    echo $duration."<br />"; 
-    echo $height_difference; 
+  echo "Difficulté: ".ucfirst($difficulty)."<br />"; 
+  echo "Distance: ".$distance." km<br />"; 
+  echo "Durée: ".$duration."<br />"; 
+  echo "Dénivelé: ".$height_difference." m"; 
 } 
-        ?>
+          ?>
+        </p>
+        <input type="hidden" name="id" value="<?= $id ?>">
       </div>
       <button type="submit" name="button">Confirmer la suppression</button>
     </form>

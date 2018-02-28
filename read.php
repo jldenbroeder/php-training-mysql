@@ -30,7 +30,7 @@ $req->execute(array());
       <tr>
        <td><a href="delete.php?id=<?php echo $data['id']; ?>">Sup.</a></td>
         <td><a href="update.php?id=<?php echo $data['id']; ?>"><?php echo $data['name']; ?></a></td>
-        <td><?php echo $data['difficulty']; ?></td>
+        <td><?php echo ucfirst($data['difficulty']); ?></td>
         <td><?php echo $data['distance']." km"; ?></td>
         <td><?php echo $data['duration']; ?></td>
         <td><?php echo $data['height_difference']." m"; ?></td>

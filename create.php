@@ -3,15 +3,15 @@ require 'notouch/sqlconnect.php';
 $table = "hiking";
 $succes = false;
 if (isset($_POST['button'])){
-  if (isset($_POST['name'])){ $name = $_POST['name']; }
+  if (isset($_POST['name'])){ $name = htmlspecialchars($_POST['name']); }
   else{ $name = ""; }
-  if (isset($_POST['difficulty'])){ $difficulty = $_POST['difficulty']; }
+  if (isset($_POST['difficulty'])){ $difficulty = htmlspecialchars($_POST['difficulty']); }
   else{ $difficulty = ""; }
-  if (isset($_POST['distance'])){ $distance = $_POST['distance']; }
+  if (isset($_POST['distance'])){ $distance = htmlspecialchars($_POST['distance']); }
   else{ $distance = ""; }
-  if (isset($_POST['duration'])){ $duration = $_POST['duration']; }
+  if (isset($_POST['duration'])){ $duration = htmlspecialchars($_POST['duration']); }
   else{ $duration = ""; }
-  if (isset($_POST['height_difference'])){ $height_difference = $_POST['height_difference']; }
+  if (isset($_POST['height_difference'])){ $height_difference = htmlspecialchars($_POST['height_difference']); }
   else{ $height_difference = ""; }
 
   $req = $bdd->prepare('INSERT INTO '.$table.'
