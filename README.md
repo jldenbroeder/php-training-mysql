@@ -4,7 +4,7 @@
 
 ## Exercices Bases de données ##
 
-Etat: **En cours**  
+Etat: **Terminé**  
 
 Début: 26/02/2018   
 Durée: 1/2 jour   
