@@ -26,6 +26,7 @@ if (isset($_GET['id']))
   $distance = $data['distance'];
   $duration = $data['duration'];
   $height_difference = $data['height_difference'];
+  $available = $data['available'];
   $req->closeCursor();
 }
 ?>
@@ -48,7 +49,8 @@ if (isset($_GET['id']))
   echo "Difficulté: ".ucfirst($difficulty)."<br />"; 
   echo "Distance: ".$distance." km<br />"; 
   echo "Durée: ".$duration."<br />"; 
-  echo "Dénivelé: ".$height_difference." m"; 
+  echo "Dénivelé: ".$height_difference." m<br />"; 
+  echo "Obstacle: ".$available; 
 } 
           ?>
         </p>

@@ -14,7 +14,7 @@ $req->execute(array());
   </head>
   <body>
     <h1>Liste des randonnées</h1>
-    <table width=75% >
+    <table width=95% >
       <tr>
        <th>Sup.</th>
         <th>Randonnée</th>
@@ -22,6 +22,7 @@ $req->execute(array());
         <th>Dst.</th>
         <th>Dur.</th>
         <th>Déniv.+</th>
+        <th>!!!</th>
       </tr>
       <?php
       while ($data = $req->fetch())
@@ -34,6 +35,7 @@ $req->execute(array());
         <td><?php echo $data['distance']." km"; ?></td>
         <td><?php echo $data['duration']; ?></td>
         <td><?php echo $data['height_difference']." m"; ?></td>
+        <td><?php echo $data['available']; ?></td>
       </tr>
       <?php
       }

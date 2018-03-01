@@ -5,18 +5,20 @@ $get = false;
 $succes = false;
 if (isset($_POST['button'])){
   $id = $_POST['id'];
-  if (isset($_POST['name'])){ $name = $_POST['name']; }
+  if (isset($_POST['name'])){ $name = htmlspecialchars($_POST['name']); }
   else{ $name = ""; }
-  if (isset($_POST['difficulty'])){ $difficulty = $_POST['difficulty']; }
+  if (isset($_POST['difficulty'])){ $difficulty = htmlspecialchars($_POST['difficulty']); }
   else{ $difficulty = ""; }
-  if (isset($_POST['distance'])){ $distance = $_POST['distance']; }
+  if (isset($_POST['distance'])){ $distance = htmlspecialchars($_POST['distance']); }
   else{ $distance = ""; }
-  if (isset($_POST['duration'])){ $duration = $_POST['duration']; }
+  if (isset($_POST['duration'])){ $duration = htmlspecialchars($_POST['duration']); }
   else{ $duration = ""; }
-  if (isset($_POST['height_difference'])){ $height_difference = $_POST['height_difference']; }
+  if (isset($_POST['height_difference'])){ $height_difference = htmlspecialchars($_POST['height_difference']); }
   else{ $height_difference = ""; }
+  if (isset($_POST['available'])){ $available = htmlspecialchars($_POST['available']); }
+  else{ $available = ""; }
 
-  $req = $bdd->prepare('UPDATE '.$table.' SET name = :name, difficulty = :difficulty, distance = :distance, duration = :duration, height_difference = :height_difference WHERE id = :id');
+  $req = $bdd->prepare('UPDATE '.$table.' SET name = :name, difficulty = :difficulty, distance = :distance, duration = :duration, height_difference = :height_difference, available = :available WHERE id = :id');
 
   $req->execute(array(
     'id' => $id,
@@ -24,7 +26,8 @@ if (isset($_POST['button'])){
     'difficulty' => $difficulty,
     'distance' => $distance,
     'duration' => $duration,
-    'height_difference' => $height_difference
+    'height_difference' => $height_difference,
+    'available' => $available
   ));
   $succes = true;
 }
@@ -44,6 +47,7 @@ if (isset($_GET['id']))
   $distance = $data['distance'];
   $duration = $data['duration'];
   $height_difference = $data['height_difference'];
+  $available = $data['available'];
   $req->closeCursor();
 }
 ?>
@@ -61,10 +65,9 @@ if (isset($_GET['id']))
     <form action="" method="post">
       <div>
         <input type="hidden" name="id" id="id" value="<?php if ($get) { echo $id; } ?>" >
-        <label for="name">Name</label>
+        <label for="name">Nom</label>
         <input type="text" name="name" value="<?php if ($get) { echo $name; } ?>">
       </div>
-
       <div>
         <label for="difficulty">Difficulté</label>
         <select name="difficulty">
@@ -75,7 +78,6 @@ if (isset($_GET['id']))
           <option value="très difficile" <?php if ( ($get) && ($difficulty == "très difficile") ) { echo "selected"; } ?>>Très difficile</option>
         </select>
       </div>
-
       <div>
         <label for="distance">Distance</label>
         <input type="number" step="0.01" name="distance"  value="<?php if ($get) { echo $distance; } ?>">
@@ -87,6 +89,10 @@ if (isset($_GET['id']))
       <div>
         <label for="height_difference">Dénivelé</label>
         <input type="number" name="height_difference"  value="<?php if ($get) { echo $height_difference; } ?>">
+      </div>
+      <div>
+        <label for="available">Obstacle</label>
+        <input type="text" name="available" value="<?php if ($get) { echo $available; } ?>">
       </div>
       <button type="submit" name="button">Envoyer</button>
     </form>
